@@ -10,6 +10,7 @@ import (
     "time"
     "bytes"
     "github.com/satori/go.uuid"
+    "context"
 )
 
 const ServerAPIVersion string = "1.0.0"
@@ -198,9 +199,9 @@ func DBConnect() {
 
 func GetKVs(DB int, key string) (kv map[string]string, err error) {
     pipe := redisDB.TxPipeline()
-    pipe.Select(DB)
-    kvRes := pipe.HGetAll(key)
-    _, err = pipe.Exec()
+    pipe.Select(context.TODO(), DB)
+    kvRes := pipe.HGetAll(context.TODO(), key)
+    _, err = pipe.Exec(context.TODO())
     if err != nil {
         return
     }
@@ -220,10 +221,10 @@ func GetKVsMulti(DB int, pattern string) (kv map[string]map[string]string, err e
 
     for {
         pipe := redisDB.TxPipeline()
-        pipe.Select(DB)
-        ret := pipe.Scan(cursor, pattern, 1)
+        pipe.Select(context.TODO(), DB)
+        ret := pipe.Scan(context.TODO(), cursor, pattern, 1)
 
-        _, err = pipe.Exec()
+        _, err = pipe.Exec(context.TODO())
         if err != nil {
             return
         }
@@ -292,10 +293,10 @@ func SwssGetVrouterRoutes(vnet_id_str string, vnidMatch int, ipFilter string) (r
 
 func CacheGetConfigResetInfo() (GUID string, time string, err error) {
     pipe := redisDB.TxPipeline()
-    pipe.Select(APPL_CACHE_DB)
-    getCmd_guid := pipe.HGet("RESET_INFO", "GUID")
-    getCmd_time := pipe.HGet("RESET_INFO", "time")
-    _, err = pipe.Exec()
+    pipe.Select(context.TODO(), APPL_CACHE_DB)
+    getCmd_guid := pipe.HGet(context.TODO(), "RESET_INFO", "GUID")
+    getCmd_time := pipe.HGet(context.TODO(), "RESET_INFO", "time")
+    _, err = pipe.Exec(context.TODO())
 
     if err != nil {
         return
@@ -316,10 +317,10 @@ func CacheGetConfigResetInfo() (GUID string, time string, err error) {
 
 func CacheSetConfigResetInfo(GUID string, time string) error {
     pipe := redisDB.TxPipeline()
-    pipe.Select(APPL_CACHE_DB)
-    setCmd_guid := pipe.HSet("RESET_INFO", "GUID", GUID)
-    setCmd_time := pipe.HSet("RESET_INFO", "time", time)
-    _, err := pipe.Exec()
+    pipe.Select(context.TODO(), APPL_CACHE_DB)
+    setCmd_guid := pipe.HSet(context.TODO(), "RESET_INFO", "GUID", GUID)
+    setCmd_time := pipe.HSet(context.TODO(), "RESET_INFO", "time", time)
+    _, err := pipe.Exec(context.TODO())
     if err != nil {
         return err
     }
