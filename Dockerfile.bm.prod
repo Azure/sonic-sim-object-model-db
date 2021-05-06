@@ -1,7 +1,5 @@
 FROM rest-api-common
 
-MAINTAINER pavelsh@microsoft.com
-
 RUN apt-get autoremove -y \
  && apt-get clean \
  && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*

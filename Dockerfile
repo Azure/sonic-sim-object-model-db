@@ -1,6 +1,4 @@
-FROM debian:stretch
-
-MAINTAINER pavelsh@microsoft.com
+FROM debian:buster
 
 ## Make apt-get non-interactive
 ENV DEBIAN_FRONTEND=noninteractive

@@ -1,7 +1,5 @@
 FROM rest-api-common
 
-MAINTAINER pavelsh@microsoft.com
-
 RUN apt-get -y install libqt5network5
 
 COPY supervisor/arp_responder_msee.conf /etc/supervisor/conf.d/
