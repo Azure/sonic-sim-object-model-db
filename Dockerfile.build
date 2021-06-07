@@ -26,11 +26,12 @@ RUN apt-get update \
       pkg-config
 
 COPY debs /debs
-RUN dpkg -i /debs/libhiredis0.13_0.13.3-2_amd64.deb \
- && dpkg -i /debs/libhiredis-dev_0.13.3-2_amd64.deb \
- && dpkg -i /debs/libnl-3-200_3.2.27-2_amd64.deb \
- && dpkg -i /debs/libnl-genl-3-200_3.2.27-2_amd64.deb \
- && dpkg -i /debs/libnl-route-3-200_3.2.27-2_amd64.deb \
+RUN dpkg -i /debs/libhiredis0.14_0.14.0-3~bpo9+1_amd64.deb \
+ && dpkg -i /debs/libhiredis-dev_0.14.0-3~bpo9+1_amd64.deb \
+ && dpkg -i /debs/libnl-3-200_3.5.0-1_amd64.deb \
+ && dpkg -i /debs/libnl-genl-3-200_3.5.0-1_amd64.deb \
+ && dpkg -i /debs/libnl-route-3-200_3.5.0-1_amd64.deb \
+ && dpkg -i /debs/libnl-nf-3-200_3.5.0-1_amd64.deb \
  && dpkg -i /debs/libswsscommon_1.0.0_amd64.deb \
  && dpkg -i /debs/libswsscommon-dev_1.0.0_amd64.deb
 RUN rm -fr /debs
